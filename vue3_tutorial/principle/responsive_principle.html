@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script type="text/javascript">
+    let person = {
+      name:"張三" , 
+      age:18
+    }
+
+
+    const p = new Proxy(person , {
+      // 讀取p某個屬性時調用
+      get(target , key){
+        console.log(`有人讀取了${target}身上${key}元素`);
+        // return target[key]
+        return Reflect.get(target , key)
+      },
+      // 新增或是修改p某個屬性時調用
+      set(target , key , value){
+        console.log(`有人新增或修改了${target}身上${key}元素，並把值變成${value}`);
+        // target[key] = value  //普通object 賦值寫法
+        Reflect.set(target , key , value)
+      },
+      // 刪除p某個屬性時調用
+      deleteProperty(target , key){
+        console.log(`有人刪除了${target}身上${key}元素`);
+        // return delete target[key]  //刪除成功會回傳true
+        Reflect.defineProperty(target , value)
+      }
+    })
+  </script>
+</body>
+</html>
